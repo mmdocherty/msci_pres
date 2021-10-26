@@ -1,0 +1,55 @@
+%% Theme
+% \usetheme{Berkeley} % theme for slides
+%\usetheme{Frankfurt}
+\usetheme{Madrid}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Colors
+%\usecolortheme{rose} % color for slides
+% \usecolortheme{default}
+\usecolortheme{seahorse}
+ \definecolor{languidlavender}{rgb}{0.84, 0.79, 0.87}\definecolor{lavenderblue}{rgb}{0.8, 0.8, 1.0}
+%\definecolor{c1}{rgb}{0,0.7,0.6} % some green
+%\definecolor{c2}{rgb}{0.9,0.9,0.9} % some gray
+%% see http://www.sharelatex.com/learn/Beamer
+%\setbeamercolor*{palette primary}{fg=white,bg=c1} % upper part
+%\setbeamercolor*{palette secondary}{bg=c2} % left part (background)
+%\setbeamercolor*{sidebar left}{fg=white,bg=c1} % left part with links
+%\setbeamerfont{section number projected}{ % section numbers
+%  family=\rmfamily,
+%  series=\bfseries,
+%  size=\normalsize
+%  }
+%\setbeamercolor{section number projected}{bg=c1} % color of section numbers and others (fg: Fontm, bg:Hintergrund)
+%\setbeamercolor{item projected}{bg=c1}
+%\setbeamercolor{itemize item}{fg=c1}
+%\setbeamercolor{author in sidebar}{fg=white}
+ \setbeamercolor{footlinecolor}{fg=black,bg=lavenderblue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Fonts
+\usefonttheme{professionalfonts} % changes fonts
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Foot
+%  \usenavigationsymbolstemplate{} % deafult controls off
+% \setbeamertemplate{footline}[frame number] % slide number at the bottom
+\setbeamertemplate{footline}
+{%
+	\leavevmode%
+	\hbox{%
+	\begin{beamercolorbox}[wd=.5\paperwidth,ht=3ex,dp=1.5ex,left,leftskip=2mm]{footlinecolor}%
+ 		\href{}{Matthew Docherty (email: 2259886d@student.gla.ac.uk)}
+%  		\href{http://www.astro.gla.ac.uk/?p=5163}{\beamergotobutton{Link}}
+	\end{beamercolorbox}%
+	\begin{beamercolorbox}[wd=.3\paperwidth,ht=3ex,dp=1.5ex,left,leftskip=2mm]{footlinecolor}%
+		ORCID iD: \href{https://orcid.org/0000-0003-2533-4077}{000-0003-2533-4077}
+		\end{beamercolorbox}%
+	\begin{beamercolorbox}[wd=.2\paperwidth,ht=3ex,dp=1.5ex,right,rightskip=2mm]{footlinecolor}%
+		\insertframenumber{} / \inserttotalframenumber%
+	\end{beamercolorbox}%
+	}%
+	\vskip0pt%
+}

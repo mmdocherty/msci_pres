@@ -1,0 +1,407 @@
+\documentclass{beamer}
+\usepackage{media9}
+ 	\definecolor{coolblack}{rgb}{0.0, 0.18, 0.39}
+ 	\definecolor{cobalt}{rgb}{0.0, 0.28, 0.67}
+ 	\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+ 	\definecolor{darkpink}{rgb}{0.91, 0.33, 0.5}
+ 	\definecolor{debianred}{rgb}{0.84, 0.04, 0.33}
+%% packages
+\input{actual_pres/settings/packages}
+%% page settings
+\input{actual_pres/settings/page}
+%% new commands
+\input{actual_pres/settings/macros}
+
+\usebackgroundtemplate{%
+\hspace{6cm}
+\tikz\node[opacity=0.05,inner sep=35]{\includegraphics[height=.2\paperheight,width=.4\paperwidth]{UofG.png}};}
+
+
+
+%% title
+\author[Matthew, Chris, Hunter]{\textcolor{coolblack}{\textbf{~Matthew~M.~Docherty\inst{1}, Chris~Messenger\inst{1}, Hunter~A.~Gabbard\inst{1}}}}
+\vspace{4cm}
+\title[Vitamin]{\textbf{\textcolor{coolblack}{Explainable Deep-learning: Monte Carlo Methods for Gravitational Wave Inference}}}
+\titlegraphic{\includegraphics[width=0.24\linewidth]{UofG} 
+              \includegraphics[width=0.32\linewidth]{pres_figs/ligo2.png}
+              \includegraphics[width=0.19\linewidth]{pres_figs/igr.png}
+              \includegraphics[width=0.17\linewidth]{pres_figs/supa.png}}
+
+\institute{\inst{1} SUPA, School of Physics and Astronomy, University of Glasgow, UK}
+% \date{} % (count-intuitive) - comment out to INCLUDE date!
+\begin{document}
+{
+  \usebackgroundtemplate{\includegraphics[width=\paperwidth]{White-square.png}}
+  \begin{frame}
+    \titlepage
+    \date{}
+  \end{frame}
+}
+
+\tikzstyle{every picture}+=[remember picture]
+\everymath{\displaystyle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONTENTS PAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Outline} % will auto-populate
+\tableofcontents
+% \tableofcontents[hideallsubsections]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 1 - Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction \& Background}
+
+\begin{frame}<beamer>
+\frametitle{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer>
+\frametitle{A (Very) Brief Introduction}
+
+\onslide<1->{\begin{block}{Parameter Estimation (PE)}
+Inferring intrinsic and extrinsic parameters from their waveform signature.
+\end{block}}
+
+\onslide<2->{\begin{block}{Bayesian Statistics}
+$p(x|y)\propto p(y|x)p(x).$ $\,x$ = parameters, $y$ = waveform data.
+\end{block}}
+
+\onslide<3->{\begin{block}{Sampling Algorithms}
+Stochastic algorithms timescale $\mathcal{O}$(days/weeks), \texttt{Dynesty*} $\mathcal{O}$(10hrs).
+\end{block}}
+
+\onslide<4->{\begin{block}{Motivation for Deep-Learning}
+Multimessenger Astronomy (MMA) benefits from fast sky localisation.
+\end{block}}
+
+
+
+
+
+\only<3->{\begin{textblock*}{55mm}(73mm,85mm)
+\tiny *J. S. Speagle MNRAS Volume 493, Issue 3, April 2020
+\end{textblock*}}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 2 - VItamin
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Our software: \texttt{VItamin}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 2.1 - VAE THEORY 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer>
+\frametitle{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{\texttt{VItamin} Structure \& Training}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer>
+\frametitle{\texttt{VItamin} Structure \& Training}
+
+
+\only<1-2>{\begin{textblock*}{30mm}(72mm,12mm)
+\frame{\includegraphics[height = 70mm, width=50mm]{network_white.png}}
+\end{textblock*}}
+
+\only<1-2>{\begin{textblock*}{70mm}(70mm,85mm)
+\tiny H.Gabbard \textit{et al.} arXiv preprint arXiv:1909.06296 (2019).
+\end{textblock*}}
+
+\begin{textblock*}{70mm}(0mm,30mm)
+% \begin{block}{Observation 1}
+\begin{description}
+\onslide<1->{\item[CVAE] {\scriptsize{Conditional Variational Autoencoder}}}
+\onslide<2->{\item[KL] {\scriptsize{Kullback-Leibler Divergence}}}
+\onslide<2->{\item[L] {\scriptsize{Reconstruction Loss}}}
+\onslide<2->{\item[H] {\scriptsize{Cost Function}}}
+\end{description}
+% \end{block}
+\end{textblock*}
+
+\only<2->{\begin{textblock*}{70mm}(0mm,60mm)
+\centering\frame{$\,H \lesssim\frac{1}{N_\text{b}}\sum_{n=1}^{N_{\text{b}}}(L+KL)$}
+\end{textblock*}}
+
+\only<3->{\begin{textblock*}{30mm}(72mm,32mm)
+\frame{\includegraphics[height = 40mm, width=50mm]{pres_figs/cost_zoom_chris_new_model.png}}
+\end{textblock*}}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 2.2 - VItamin Framework 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{\texttt{VItamin} Results}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer>
+\frametitle{\texttt{VItamin} Results}
+
+
+% equation in a text block for sure!!!
+
+\begin{textblock*}{50mm}(0mm,17mm)
+\begin{itemize}
+    \only<2->{\item \textbf{Plot Factfile:}
+    \begin{itemize}
+        \item 6 parameters
+        \item 1 detector
+        \item 5000 samples
+    \end{itemize}}
+\vspace{4mm}    
+    \only<2->{\item \textbf{Choice of Parameters:}
+    \begin{itemize}
+        \item Less sampling time
+        \item All have flat priors
+        \item Phase marginalisation
+    \end{itemize}}
+\vspace{4mm}    
+    \only<2->{\item \textbf{Result Quality:}
+    \begin{itemize}
+        \item Good for unimodal
+        \item ``Misses" psi
+        \item Incomplete training
+    \end{itemize}}
+\end{itemize}
+\end{textblock*}
+
+\only<2->{\begin{textblock*}{30mm}(50mm,12mm)
+\frame{\includegraphics[height = 75mm, width=75mm]{pres_figs/corner_plot_chris_new_model_0_final.png}}
+\end{textblock*}}
+
+\begin{textblock*}{55mm}(67.5mm,14mm)
+
+{\tikz[baseline]{
+            \node[fill=blue!20,anchor=base] 
+            {$\~p(x|y) = \int dz\,r_{\theta_1}(z|y)r_{\theta_2}(x|y,z)$};}}
+
+\end{textblock*}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 3 - MONTE CARLO METHODS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Monte Carlo Methods for Explainable Deep-learning}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 3.1 - MONTE CARLO THEORY and practical framework
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+
+\subsection{Monte Carlo Framework}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Monte Carlo Maths}
+
+% $$y = 2x \onslide<2->{+ 3}$$
+
+% include general rule, then do the colours thing again for which is which
+% this is a long slide of lots of detail
+
+\onslide<4->{\begin{itemize}
+    \alert<4>{\item Monte Carlo approximation}
+        \tikz[na] \node[coordinate] (n2) {};
+\end{itemize}}
+
+\onslide<2->{\begin{itemize}
+    \alert<2>{\item Probability density}
+        \tikz[na] \node[coordinate] (n1) {};
+\end{itemize}}
+
+\only<1->{
+\begin{equation*}
+I=\int dx\,f(x)\only<1>{p(x)}
+\only<2->{\tikz[baseline]{
+            \node[fill=red!20,anchor=base] (t1)
+            {$f(x)$};
+        }}
+\onslide<3->{= \mathbb{E}_h(f(x))}
+\onslide<4->{
+\tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t2)
+            {$\approx \frac{1}{N}\sum^{N}_{j=1}\left.f(x_j)\right|_{x_j\sim p(x)}$};
+        }
+}
+\end{equation*}
+}
+
+\begin{tikzpicture}[overlay]
+        \path[->]<2-> (n1) edge [bend left] (t1);
+        \path[->]<4-> (n2) edge [bend left] (t2);
+\end{tikzpicture}
+
+\vspace{-6mm}
+
+\onslide<7->{\begin{itemize}
+    \alert<7>{\item Single posterior sample}
+        \tikz[na] \node[coordinate] (n3) {};
+\end{itemize}}
+% \vspace{-1mm}
+\onslide<5->{\begin{equation*}
+\~p(x|y) = \int dz\,r_{\theta_1}(z|y)r_{\theta_2}(x|y,z)
+\onslide<6->{\approx \frac{1}{N_z}\sum^{N_z}_{j=1}\left.r_{\theta_2}(
+\only<6>{x}
+\only<7->{\tikz[baseline]{
+            \node[fill=blue!20,anchor=base] (t3)
+            {$x$};
+        }}
+|y,z)\right|_{z_j\sim r_{\theta_1}(z|y)}}    
+\end{equation*}}
+
+\begin{tikzpicture}[overlay]
+        \path[->]<7-> (n3) edge [bend left] (t3);
+\end{tikzpicture}
+
+\vspace{-8mm}
+\onslide<8>{$$\~p(x|y) \sim \~p(y|x)$$}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION 3.2 - MONTE CARLO INTERIM RESULTS & ONGOING WORK
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Interim Results \& Ongoing Work}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer>
+\frametitle{Motivation \& Interim Results}
+
+
+\begin{textblock*}{50mm}(0mm,17mm)
+\begin{itemize}
+    \only<1->{\item \textbf{Motivation:}
+    \begin{itemize}
+        \item Test Quality
+        \item Improve Quality
+        \item Importance Sampling
+    \end{itemize}}
+\vspace{4mm}    
+    \only<2->{\item \textbf{Result Criteria:}
+    \begin{itemize}
+        \item Self-consistent
+        \item Reproducible
+    \end{itemize}}
+\vspace{4mm}    
+    \only<3->{\item \textbf{Plot Quality:}
+    \begin{itemize}
+        \item Qualatitive Success
+        \item ``Misses" Inclination
+    \end{itemize}}
+\end{itemize}
+\end{textblock*}
+
+\only<3->{\begin{textblock*}{30mm}(50mm,11mm)
+\includegraphics[height = 75mm, width=75mm]{pres_figs/self_con_white.png}
+\end{textblock*}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer>
+\frametitle{Brief Summary \& Ongoing/Future Work}
+
+\onslide<1->{\begin{tcolorbox}[enhanced,attach boxed title to top center={yshift=-3mm,yshifttext=-1mm},
+  colback=blue!5!white,colframe=blue!75!black,colbacktitle=red!80!black,
+  title=Recap,fonttitle=\bfseries,
+  boxed title style={size=small,colframe=red!50!black} ]
+\begin{columns}[t]
+\column{0.45\textwidth}
+	\scriptsize  $\mathbf{1.}$~Focus on faster PE for MMA. \\
+             \vspace{2mm}
+             $\mathbf{3.}$~Generated \texttt{VItamin} samples and approximated their likelihood using Monte Carlo methods.
+             
+             
+\column{0.45\textwidth}
+	\scriptsize  $\mathbf{2.}$~Have trained \texttt{VItamin} to learn posterior by minimising \emph{H}. \\
+             \vspace{2mm}
+             $\mathbf{4.}$~Likelihoods are self-consistent from qualatitive test.
+\end{columns}
+\end{tcolorbox}}
+
+\vspace{4mm}
+
+\onslide<2->{\begin{tcolorbox}[enhanced,attach boxed title to top center={yshift=-3mm,yshifttext=-1mm},
+  colback=blue!5!white,colframe=blue!75!black,colbacktitle=red!80!black,
+  title=Ongoing Work,fonttitle=\bfseries,
+  boxed title style={size=small,colframe=red!50!black} ]
+\begin{columns}[t]
+\column{0.45\textwidth}
+	\scriptsize $\bullet$~Reweigh likelihoods using \texttt{Dynesty} samples via Importance Sampling. \\ 
+	
+             \vspace{2mm}
+             $\bullet$~Rewrite code in \texttt{keras.tensorflow} for \texttt{VItamin\_c}.
+\column{0.45\textwidth}
+	\scriptsize  $\bullet$~Quantitative tests of likelihood reproducibility with batch size.\\
+             \vspace{2mm}
+             $\bullet$~Increase parameter space by accounting for non-flat priors. \\
+             
+
+\end{columns}
+
+\end{tcolorbox}}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}<beamer>
+\frametitle{Thanks for Listening}
+
+\begin{block}{\texttt{VItamin} Repo}
+\centering\textcolor{blue}{\url{https://github.com/hagabbar/vitamin_c}}\\
+Just been updated to \texttt{VItamin\_c} pre-release, go check it out!
+
+\end{block}
+% \textcolor{blue}{\url{https://github.com/hagabbar/vitamin_c}}
+% Just been updated to \texttt{VItamin_c} pre-release, go check it out!!!
+% Open the floor for Questions
+
+\vspace{10mm}
+\centering \large I look forwarding to answering any questions you may have!
+\end{frame}
+
+
+\end{document}
